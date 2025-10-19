@@ -1,0 +1,14 @@
+*---------------------- HEADER FIELD
+#PLAYER 1
+#GENRE BGM_ONLY
+#TITLE song_export
+#ARTIST AI_GENERATED
+#BPM 120
+#PLAYLEVEL 1
+#RANK 2
+#LNTYPE 1
+
+#WAV01 song.wav
+
+*---------------------- MAIN DATA FIELD
+#00001:01

@@ -1,0 +1,29 @@
+﻿
+*---------------------- HEADER FIELD
+
+#PLAYER 1
+#GENRE MIDI_EXPORT
+#TITLE song_export
+#ARTIST AI_GENERATED
+#BPM 120
+#PLAYLEVEL 1
+#RANK 3
+
+
+#LNTYPE 1
+
+#WAV01 note_01.wav
+#WAV02 note_02.wav
+#WAV03 note_03.wav
+
+
+*---------------------- MAIN DATA FIELD
+
+
+#00012:01
+#00015:0003
+#00017:00020002
+
+#00112:01010100
+
+
