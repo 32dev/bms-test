@@ -1,0 +1,118 @@
+*---------------------- HEADER FIELD
+#PLAYER 1
+#GENRE MIDI_EXPORT
+#TITLE input.mid
+#ARTIST AI
+#BPM 120
+#PLAYLEVEL 1
+#RANK 2
+#LNTYPE 1
+#WAV01 notes/note_01.wav
+#WAV02 notes/note_02.wav
+#WAV03 notes/note_03.wav
+#WAV04 notes/note_04.wav
+#WAV05 notes/note_05.wav
+#WAV06 notes/note_06.wav
+#WAV07 notes/note_07.wav
+#WAV08 notes/note_08.wav
+#WAV09 notes/note_09.wav
+#WAV10 notes/note_10.wav
+#WAV11 notes/note_11.wav
+#WAV12 notes/note_12.wav
+#WAV13 notes/note_13.wav
+#WAV14 notes/note_14.wav
+#WAV15 notes/note_15.wav
+#WAV16 notes/note_16.wav
+#WAV17 notes/note_17.wav
+#WAV18 notes/note_18.wav
+#WAV19 notes/note_19.wav
+#WAV20 notes/note_20.wav
+#WAV21 notes/note_21.wav
+#WAV22 notes/note_22.wav
+#WAV23 notes/note_23.wav
+#WAV24 notes/note_24.wav
+#WAV25 notes/note_25.wav
+#WAV26 notes/note_26.wav
+#WAV27 notes/note_27.wav
+#WAV28 notes/note_28.wav
+#WAV29 notes/note_29.wav
+#WAV30 notes/note_30.wav
+#WAV31 notes/note_31.wav
+#WAV32 notes/note_32.wav
+#WAV33 notes/note_33.wav
+#WAV34 notes/note_34.wav
+#WAV35 notes/note_35.wav
+#WAV36 notes/note_36.wav
+#WAV37 notes/note_37.wav
+#WAV38 notes/note_38.wav
+#WAV39 notes/note_39.wav
+#WAV40 notes/note_40.wav
+#WAV41 notes/note_41.wav
+#WAV42 notes/note_42.wav
+#WAV43 notes/note_43.wav
+#WAV44 notes/note_44.wav
+#WAV45 notes/note_45.wav
+#WAV46 notes/note_46.wav
+#WAV47 notes/note_47.wav
+#WAV48 notes/note_48.wav
+#WAV49 notes/note_49.wav
+#WAV50 notes/note_50.wav
+#WAV51 notes/note_51.wav
+#WAV52 notes/note_52.wav
+#WAV53 notes/note_53.wav
+#WAV54 notes/note_54.wav
+#WAV55 notes/note_55.wav
+#WAV56 notes/note_56.wav
+#WAV57 notes/note_57.wav
+#WAV58 notes/note_58.wav
+#WAV59 notes/note_59.wav
+#WAV60 notes/note_60.wav
+#WAV61 notes/note_61.wav
+#WAV62 notes/note_62.wav
+#WAV63 notes/note_63.wav
+#WAV64 notes/note_64.wav
+#WAV65 notes/note_65.wav
+#WAV66 notes/note_66.wav
+#WAV67 notes/note_67.wav
+#WAV68 notes/note_68.wav
+#WAV69 notes/note_69.wav
+#WAV70 notes/note_70.wav
+#WAV71 notes/note_71.wav
+#WAV72 notes/note_72.wav
+#WAV73 notes/note_73.wav
+#WAV74 notes/note_74.wav
+#WAV75 notes/note_75.wav
+#WAV76 notes/note_76.wav
+#WAV77 notes/note_77.wav
+#WAV78 notes/note_78.wav
+#WAV79 notes/note_79.wav
+#WAV80 notes/note_80.wav
+#WAV81 notes/note_81.wav
+#WAV82 notes/note_82.wav
+#WAV83 notes/note_83.wav
+#WAV84 notes/note_84.wav
+#WAV85 notes/note_85.wav
+#WAV86 notes/note_86.wav
+#WAV87 notes/note_87.wav
+#WAV88 notes/note_88.wav
+#WAV89 notes/note_89.wav
+#WAV90 notes/note_90.wav
+#WAV91 notes/note_91.wav
+#WAV92 notes/note_92.wav
+#WAV93 notes/note_93.wav
+#WAV94 notes/note_94.wav
+#WAV95 notes/note_95.wav
+#WAV96 notes/note_96.wav
+*---------------------- MAIN DATA FIELD
+#00001:01000200030004000500060007000800
+#00101:09001000110012001300140015001600
+#00201:17001800190020002100220023002400
+#00301:25002600270028002900300031003200
+#00401:33003400350036003700380039004000
+#00501:41004200430044004500460047004800
+#00601:49005000510052005300540055005600
+#00701:57005800590060006100620063006400
+#00801:65006600670068006900700071007200
+#00901:73007400750076007700780079008000
+#01001:81008200830084008500860087008800
+#01101:89009000910092009300940095009600
