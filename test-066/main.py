@@ -9,22 +9,20 @@ midi_files = ["pn1.mid", "pn2.mid", "pn3.mid",
 wav_files = ["pn1.wav", "pn2.wav", "pn3.wav",
              "pn4.wav", "pn5.wav", "kick.wav", "snare.wav"]
 instrument_names = ["pn1", "pn2", "pn3", "pn4", "pn5", "kick", "snare"]
+
 output_dir = "notes"
 bms_path = "output.bms"
 bpm_default = 96
 division = 48
-base_lane = 11      # 첫 악기 레인 번호
-min_note_ms = 50    # 최소 노트 길이
+base_lane = 11
+min_note_ms = 50
+
 os.makedirs(output_dir, exist_ok=True)
 
 # 36진수 변환
 digits36 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 def to36(n):
-    if n < 36:
-        return digits36[n]
-    else:
-        q, r = divmod(n, 36)
-        return digits36[q] + digits36[r]
+    return digits36[n] if n < 36 else digits36[n//36] + digits36[n%36]
 
 # --- BMS 초기화 ---
 if not os.path.exists(bms_path):
@@ -47,11 +45,6 @@ if not os.path.exists(bms_path):
 with open(bms_path, "r", encoding="utf-8") as f:
     bms_lines = f.read().splitlines()
 
-# 기존 WAV 최대 인덱스
-wav_ids = [int(m.group(1), 36)
-           for line in bms_lines if (m := re.match(r"#WAV([0-9A-Z]{2})", line))]
-next_wav_index = (max(wav_ids) + 1) if wav_ids else 0
-
 # 기존 measure_data 초기화
 measure_data = {}
 for line in bms_lines:
@@ -63,11 +56,14 @@ for line in bms_lines:
         measure_data.setdefault(measure, {})[channel] = data
 
 # --- MIDI + WAV 병합 ---
+next_wav_index = 1  # BMS WAV 번호 01부터 시작
+instrument_file_counter = {name:1 for name in instrument_names}  # 파일명 악기별 순번
+
 for idx, (midi_path, wav_path, inst_name) in enumerate(zip(midi_files, wav_files, instrument_names)):
     if not os.path.exists(midi_path) or not os.path.exists(wav_path):
         continue
 
-    lane_channel = f"{base_lane + idx:02}"  # 악기별 레인
+    lane_channel = f"{base_lane + idx:02}"
     mid = MidiFile(midi_path)
     ticks_per_beat = mid.ticks_per_beat
     def tick_to_sec(t): return (t / ticks_per_beat) * (60 / bpm_default)
@@ -83,8 +79,8 @@ for idx, (midi_path, wav_path, inst_name) in enumerate(zip(midi_files, wav_files
                 notes.append(current_tick)
     notes.sort()
 
-    # --- WAV 추출 및 중복 최소화 (모든 악기 동일 처리) ---
-    note_map = {}  # (inst_name, length_ms) -> WAV 번호
+    # --- WAV 추출 및 중복 최소화 ---
+    note_map = {}  # (length_ms) -> BMS WAV 번호
     event_list = []
 
     for i, tick_start in enumerate(notes):
@@ -93,27 +89,28 @@ for idx, (midi_path, wav_path, inst_name) in enumerate(zip(midi_files, wav_files
         end_sec = tick_to_sec(tick_end)
         length_ms = max(int((end_sec - start_sec)*1000), min_note_ms)
 
-        key = (inst_name, length_ms)
+        key = length_ms
         if key not in note_map:
-            wav_id = next_wav_index
-            note_map[key] = wav_id
-            next_wav_index += 1
-            filename = os.path.join(output_dir, f"{inst_name}-{wav_id+1}.wav")
+            wav_num = instrument_file_counter[inst_name]
+            filename = os.path.join(output_dir, f"{inst_name}-{wav_num:02}.wav")
             segment = audio[int(start_sec*1000):int(start_sec*1000)+length_ms]
             segment.export(filename, format="wav")
-        else:
-            wav_id = note_map[key]
 
+            note_map[key] = next_wav_index
+            next_wav_index += 1
+            instrument_file_counter[inst_name] += 1
+        wav_id = note_map[key]
         event_list.append((start_sec, wav_id))
 
     # --- WAV 등록 ---
-    existing_wavs = {m.group(1) for line in bms_lines if (m := re.match(r"#WAV([0-9A-Z]{2})", line))}
+    existing_wavs = {m.group(1) for line in bms_lines if (m:=re.match(r"#WAV([0-9A-Z]{2})", line))}
     insert_index = next((i for i, l in enumerate(bms_lines) if l.startswith("*---------------------- MAIN DATA FIELD")), len(bms_lines))
 
-    for key, wav_id in sorted(note_map.items(), key=lambda x: x[1]):
+    for length_ms, wav_id in sorted(note_map.items(), key=lambda x: x[1]):
         wav36 = to36(wav_id)
         if wav36 not in existing_wavs:
-            filename = f"{output_dir}/{key[0]}-{wav_id+1}.wav"
+            file_num = instrument_file_counter[inst_name]-1  # 방금 생성한 마지막 번호
+            filename = f"{output_dir}/{inst_name}-{file_num:02}.wav"
             bms_lines.insert(insert_index, f"#WAV{wav36:02} {filename}")
             existing_wavs.add(wav36)
 
@@ -142,4 +139,4 @@ with open(bms_path, "w", encoding="utf-8") as f:
             f.write(line + "\n")
     f.write("\n".join(main_data))
 
-print("🎉 모든 MIDI 병합 완료 (악기별 레인, 길이 기준 중복 최소화, notes/악기명-번호.wav, 36진수 WAV 번호)")
+print("🎉 모든 MIDI 병합 완료! (악기별 순차 파일명, BMS WAV 번호 01부터 시작)")
